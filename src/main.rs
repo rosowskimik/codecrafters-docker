@@ -1,22 +1,18 @@
-use std::io::Write;
+use std::{
+    env,
+    io::{stderr, stdout, Write},
+    process::{self, Command},
+};
 
 // Usage: your_docker.sh run <image> <command> <arg1> <arg2> ...
 fn main() {
-    // Uncomment this block to pass the first stage!
-    let args: Vec<_> = std::env::args().collect();
+    let args: Vec<_> = env::args().collect();
     let command = &args[3];
     let command_args = &args[4..];
-    let output = std::process::Command::new(command)
-        .args(command_args)
-        .output()
-        .unwrap();
+    let output = Command::new(command).args(command_args).output().unwrap();
 
-    // if output.status.success() {
-    //     let std_out = std::str::from_utf8(&output.stdout).unwrap();
-    //     println!("{}", std_out)
-    // } else {
-    //     std::process::exit(1);
-    // }
-    std::io::stdout().write_all(&output.stdout).unwrap();
-    std::io::stderr().write_all(&output.stderr).unwrap();
+    stdout().write_all(&output.stdout).unwrap();
+    stderr().write_all(&output.stderr).unwrap();
+
+    process::exit(output.status.code().unwrap_or(0));
 }
