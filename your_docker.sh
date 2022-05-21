@@ -6,7 +6,7 @@
 #
 # DON'T EDIT THIS!
 exec cargo run \
-    --quiet \
     --release \
     --target-dir=/tmp/codecrafters-docker-target \
     --manifest-path "$(dirname "$0")/Cargo.toml" "$@"
+# exec /tmp/codecrafters-docker-target/release/docker-starter-rust "$@"
