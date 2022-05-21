@@ -18,5 +18,6 @@ RUN cargo clean -p docker-starter-rust --release --target-dir=/tmp/codecrafters-
 
 # Grab the real code
 ADD . /app
+RUN cargo build --release --target-dir=/tmp/codecrafters-docker-target
 
 ENTRYPOINT ["/app/your_docker.sh"]
